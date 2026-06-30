@@ -47,19 +47,31 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	case 0x00E0:
 		vm.Pc += 2
 	// Jump 0x1NNN
+	// The interpreter sets the program counter to nnn.
 	case 0x1000:
-		// The interpreter sets the program counter to nnn.
 		newPc := vm.Opcode & 0x0FFF
 		vm.Pc = newPc
 	// 6XNN (set register VX)
+	// The interpreter puts the value kk into register Vx.
 	case 0x6000:
+		kk := vm.Opcode & 0x00FF
+		x := vm.Opcode & 0x0F00
+		vm.V[x] = byte(kk)
+		vm.Pc += 2
 	// 7XNN (add value to register VX)
+	// Adds the value kk to the value of register Vx, then stores the result in Vx.
 	case 0x7000:
+		kk := vm.Opcode & 0x00FF
+		x := vm.Opcode & 0x0F00
+		a := vm.V[x]
+		vm.V[x] = byte(kk) + a
+		vm.Pc += 2
 	// ANNN (set index register I)
 	case 0xA000:
 		vm.Pc += 2
 	// DXYN (display/draw)
 	case 0xD000:
+		fmt.Printf("Not implemented!")
 
 	}
 	fmt.Printf("next pc=%x", vm.Pc)
