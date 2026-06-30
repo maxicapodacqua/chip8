@@ -56,7 +56,7 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	// The interpreter puts the value kk into register Vx.
 	case 0x6000:
 		kk := vm.Opcode & 0x00FF
-		x := vm.Opcode & 0x0F00
+		x := (vm.Opcode & 0x0F00) >> 8
 		vm.V[x] = byte(kk)
 		vm.Pc += 2
 	// 7XNN (add value to register VX)
@@ -73,6 +73,7 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	// DXYN (display/draw)
 	case 0xD000:
 		fmt.Printf("Not implemented!")
+		vm.Pc += 2
 
 	}
 	fmt.Printf("next pc=%x\n", vm.Pc)
