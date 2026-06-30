@@ -9,7 +9,9 @@ func main() {
 	vm.Pc = 0x200
 	vm.I = 0
 	vm.Sp = 0
-	vm.Memory[vm.Pc] = 0xA2
+	// vm.Memory[vm.Pc] = 0xA2
+	// vm.Memory[vm.Pc+1] = 0xF0
+	vm.Memory[vm.Pc] = 0x12
 	vm.Memory[vm.Pc+1] = 0xF0
 
 	vm.FetchOpCode()
