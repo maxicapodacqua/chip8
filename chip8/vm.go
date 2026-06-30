@@ -41,7 +41,7 @@ func (vm *VirtualMachine) FetchOpCode() {
 func (vm *VirtualMachine) DecodeOpCode() {
 	// Get the first part of the opcode
 	opcodeHighNibble := vm.Opcode & 0xF000
-	fmt.Printf("instruction %x pc=%x\n", vm.Opcode, vm.Pc)
+	fmt.Printf("instruction %04x pc=%x\n", vm.Opcode, vm.Pc)
 	switch opcodeHighNibble {
 	// Clear the display.
 	case 0x0000: // TODO: add case for 00e0, and other codes that start with 0
@@ -52,6 +52,7 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	case 0x1000:
 		newPc := vm.Opcode & 0x0FFF
 		vm.Pc = newPc
+		panic("asdasd")
 	// 6XNN (set register VX)
 	// The interpreter puts the value kk into register Vx.
 	case 0x6000:
@@ -72,7 +73,7 @@ func (vm *VirtualMachine) DecodeOpCode() {
 		vm.Pc += 2
 	// DXYN (display/draw)
 	case 0xD000:
-		fmt.Printf("Not implemented!")
+		fmt.Printf("Not implemented!\n")
 		vm.Pc += 2
 
 	}
