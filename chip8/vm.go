@@ -44,7 +44,8 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	fmt.Printf("instruction %x pc=%x\n", vm.Opcode, vm.Pc)
 	switch opcodeHighNibble {
 	// Clear the display.
-	case 0x00E0:
+	case 0x0000: // TODO: add case for 00e0, and other codes that start with 0
+		// case 0x00E0:
 		vm.Pc += 2
 	// Jump 0x1NNN
 	// The interpreter sets the program counter to nnn.
@@ -74,5 +75,5 @@ func (vm *VirtualMachine) DecodeOpCode() {
 		fmt.Printf("Not implemented!")
 
 	}
-	fmt.Printf("next pc=%x", vm.Pc)
+	fmt.Printf("next pc=%x\n", vm.Pc)
 }
