@@ -41,9 +41,22 @@ func (vm *VirtualMachine) FetchOpCode() {
 func (vm *VirtualMachine) DecodeOpCode() {
 	// Get the first part of the opcode
 	opcodeHighNibble := vm.Opcode & 0xF000
+	fmt.Printf("instruction %x\n", vm.Opcode)
 	switch opcodeHighNibble {
+	// Clear the display.
+	case 0x00E0:
+		vm.Pc += 2
+	// Jump 0x1NNN
+	case 0x1000:
+	// 6XNN (set register VX)
+	case 0x6000:
+	// 7XNN (add value to register VX)
+	case 0x7000:
+	// ANNN (set index register I)
 	case 0xA000:
-		fmt.Printf("instruction Annn: %x", vm.Opcode)
-		break
+		vm.Pc += 2
+	// DXYN (display/draw)
+	case 0xD000:
+
 	}
 }
