@@ -1,5 +1,7 @@
 package chip8
 
+import "fmt"
+
 type VirtualMachine struct {
 	// uint16 because opcode is two bytes long
 	Opcode uint16
@@ -36,6 +38,12 @@ func (vm *VirtualMachine) FetchOpCode() {
 	vm.Opcode = a | b
 }
 
-func (vm *VirtualMachine) DecodeOpCode(opcode uint16) {
-
+func (vm *VirtualMachine) DecodeOpCode() {
+	// Get the first part of the opcode
+	opcodeHighNibble := vm.Opcode & 0xF000
+	switch opcodeHighNibble {
+	case 0xA000:
+		fmt.Printf("instruction Annn: %x", vm.Opcode)
+		break
+	}
 }

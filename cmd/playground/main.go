@@ -13,5 +13,6 @@ func main() {
 	vm.Memory[vm.Pc+1] = 0xF0
 
 	vm.FetchOpCode()
+	vm.DecodeOpCode()
 
 }
