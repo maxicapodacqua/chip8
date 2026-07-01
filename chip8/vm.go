@@ -153,3 +153,7 @@ func (vm *VirtualMachine) draw() {
 		}
 	}
 }
+
+func (vm *VirtualMachine) Render() {
+
+}
