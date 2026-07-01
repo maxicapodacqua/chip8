@@ -119,8 +119,8 @@ func (vm *VirtualMachine) draw() {
 	vx := (vm.Opcode & 0x0F00) >> 8
 	// get vy and make it a value, shift by 4, because is the second nibble
 	vy := (vm.Opcode & 0x00F0) >> 4
-	x := vm.V[vx]
-	y := vm.V[vy]
+	x := uint16(vm.V[vx])
+	y := uint16(vm.V[vy])
 	height := vm.Opcode & 0x00F
 	var pixel byte
 	// Set collision flag to 0
@@ -144,7 +144,7 @@ func (vm *VirtualMachine) draw() {
 			//  ^          ^
 			isPixelSet := pixel&(byte(bitmaskForXLine)) != 0
 			if isPixelSet {
-				graphIndex := x + byte(xline) + (y + byte(yline)*64)
+				graphIndex := x + xline + ((y + yline) * 64)
 				// Set vF register
 				if vm.Graphics[graphIndex] == 1 {
 					vm.V[0xF] = 1
