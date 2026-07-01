@@ -30,6 +30,7 @@ func main() {
 	// vm.Memory[vm.Pc] = 0x12
 	// vm.Memory[vm.Pc+1] = 0xF0
 
+	vm.LoadFontset()
 	for {
 		vm.FetchOpCode()
 		vm.DecodeOpCode()
