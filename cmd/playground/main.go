@@ -58,7 +58,8 @@ func render(imd *imdraw.IMDraw) {
 func main() {
 
 	// Loading rom
-	f, err := os.ReadFile("../../roms/IBMLogo.ch8")
+	f, err := os.ReadFile("../../roms/chip8_logo.ch8")
+	// f, err := os.ReadFile("../../roms/IBMLogo.ch8")
 	if err != nil {
 		panic(err)
 	}

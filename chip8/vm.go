@@ -79,7 +79,16 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	case 0x1000:
 		newPc := vm.Opcode & 0x0FFF
 		vm.Pc = newPc
-		// panic("asdasd")
+	// 3xkk
+	// Skip next instruction if Vx = kk.
+	case 0x3000:
+		kk := vm.Opcode & 0x00FF
+		x := (vm.Opcode & 0x0F00) >> 8
+		if vm.V[x] == byte(kk) {
+			vm.Pc += 4
+		} else {
+			vm.Pc += 2
+		}
 	// 6XNN (set register VX)
 	// The interpreter puts the value kk into register Vx.
 	case 0x6000:
@@ -91,7 +100,7 @@ func (vm *VirtualMachine) DecodeOpCode() {
 	// Adds the value kk to the value of register Vx, then stores the result in Vx.
 	case 0x7000:
 		kk := vm.Opcode & 0x00FF
-		x := vm.Opcode & 0x0F00
+		x := (vm.Opcode & 0x0F00) >> 8
 		a := vm.V[x]
 		vm.V[x] = byte(kk) + a
 		vm.Pc += 2
@@ -107,7 +116,8 @@ func (vm *VirtualMachine) DecodeOpCode() {
 		vm.draw()
 		// fmt.Printf("Not implemented!\n")
 		vm.Pc += 2
-
+	default:
+		panic(fmt.Errorf("not implemented! %04x", vm.Opcode))
 	}
 	fmt.Printf("next pc=%x\n", vm.Pc)
 }
